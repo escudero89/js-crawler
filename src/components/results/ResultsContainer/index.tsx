@@ -7,6 +7,8 @@ import Loading from '../../shared/Loading/index'
 import TopScripts from '../TopScripts/index'
 import SitesContainer from '../SitesContainer/index'
 
+import ScriptsCollectorContainer from '../../../hooks/unstated/ScriptsCollectorContainer'
+
 type ResultsContainerProps = {
   searchFor: string;
 }
@@ -25,9 +27,9 @@ export default function ResultsContainer({ searchFor }: ResultsContainerProps): 
   const { data: googleResults } = data
 
   return (
-    <div>
+    <ScriptsCollectorContainer.Provider>
       <TopScripts />
       <SitesContainer sites={googleResults} />
-    </div>
+    </ScriptsCollectorContainer.Provider>
   )
 }

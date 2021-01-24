@@ -13,7 +13,7 @@ export default {
       querySelectorAll: '#search a[data-ved][href^="https://"]', // @hack this could be improved upon
     },
     sites: {
-      querySelectorAll: 'script[src]',
+      querySelectorAll: 'script[src$=".js"]',
     },
   },
 }

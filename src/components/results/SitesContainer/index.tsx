@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { List } from 'antd'
 import { LinkOutlined } from '@ant-design/icons'
 
-import ScriptResolver from './ScriptResolver'
+import ScriptsResolver from './ScriptsResolver'
 
 type SitesContainerProps = {
   sites: string[]
@@ -26,7 +26,7 @@ export default function SitesContainer({ sites }: SitesContainerProps): ReactEle
           >
             <List.Item.Meta
               title={site}
-              description={<ScriptResolver site={site} />}
+              description={<ScriptsResolver site={site} />}
             />
           </List.Item>
         )}
