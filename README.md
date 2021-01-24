@@ -1,14 +1,12 @@
 # JS Crawler
 
-Crawls results from [Google](https://google.com), and retrieves the JS files that are in their most relevant results.
+Crawls results from [Google](https://google.com), and retrieves the JS files that are used in their most relevant results.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It uses [Ant Design](https://ant.design/) for the UI.
 
 ## Running the app
 
-Install the dependencies with `npm` or `yarn` (this project uses `Node v12`).
-
-Then, run the development server:
+Install the dependencies with `npm` or `yarn` (this project uses `Node v12`). Then, run the development server:
 
 ```bash
 npm run dev
@@ -20,9 +18,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## How it works
 
-Once the user enters a search value in the main site, we use [Puppeter](https://pptr.dev/) to crawl results in Google.
+Once the user enters a search value in the home, we use [Puppeter](https://pptr.dev/) to crawl results in Google by exposing our own API.
 
-> We use Puppeter with a [extra stealth plugin](https://www.npmjs.com/package/puppeteer-extra-plugin-stealth) to avoid detection by Google. Some sites (like Google) take crawling seriously, so we can't use a simple `CURL` to retrieve its content. This is way we have to use some browser emulator (in this case, a headless chromium) to navigate and retrieve its content. This approach is more **costly** (due to the increased usage of CPU), but it gives us the results we want.
+> We use Puppeter with a [extra stealth plugin](https://www.npmjs.com/package/puppeteer-extra-plugin-stealth) to avoid detection by Google. Some sites (like Google) take crawling seriously, so we can't use a simple `CURL` to retrieve its content. This is why we have to use some browser emulator (in this case, a headless chromium) to navigate and retrieve its content. However, this approach is more **costly** (due to the increased usage of CPU).
 
 Then we select using a certain query the links that are brought back by Google's results page. For each link, we also execute a crawl (in parallel due to how we implemented the components and the API calls) using Puppeter, and we extract the `script` tags with a `js` src code.
 
