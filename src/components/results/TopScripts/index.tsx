@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import { Badge, List } from 'antd'
 
 import ScriptsCollectorContainer from '../../../hooks/unstated/ScriptsCollectorContainer'
+import config from '../../../../config/default'
 
 export default function TopScripts(): ReactElement {
   const collection = ScriptsCollectorContainer.useContainer()
@@ -10,7 +11,7 @@ export default function TopScripts(): ReactElement {
     <div>
       <List
         itemLayout="horizontal"
-        dataSource={scripts}
+        dataSource={scripts.splice(0, config.parameters.MAX_QUANTITY_OF_LIBRARIES_SHOWN)}
         renderItem={(script) => (
           <List.Item extra={<Badge count={script.weight} />}>
             <List.Item.Meta

@@ -1,8 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# JS Crawler
 
-## Getting Started
+Crawls results from [Google](https://google.com), and retrieves the JS files that are in their most relevant results.
 
-First, run the development server:
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It uses [Ant Design](https://ant.design/) for the UI.
+
+## Running the app
+
+Install the dependencies with `npm` or `yarn` (this project uses `Node v12`).
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -12,23 +18,48 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## How it works
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Once the user enters a search value in the main site, we use [Puppeter](https://pptr.dev/) to crawl results in Google.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+> We use Puppeter with a [extra stealth plugin](https://www.npmjs.com/package/puppeteer-extra-plugin-stealth) to avoid detection by Google. Some sites (like Google) take crawling seriously, so we can't use a simple `CURL` to retrieve its content. This is way we have to use some browser emulator (in this case, a headless chromium) to navigate and retrieve its content. This approach is more **costly** (due to the increased usage of CPU), but it gives us the results we want.
 
-## Learn More
+Then we select using a certain query the links that are brought back by Google's results page. For each link, we also execute a crawl (in parallel due to how we implemented the components and the API calls) using Puppeter, and we extract the `script` tags with a `js` src code.
 
-To learn more about Next.js, take a look at the following resources:
+> We could just use a `curl` for most sites. This could be a potential improvement over this code.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+For selecting the top scripts, we parse the sources and:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- remove the `.min` extension if exists.
+- convert into wildcards the semver (e.g. `1.2.3` becomes `x.x.x`).
+- remove query params and fragments (e.g. `/sit?in=chair#please` becomes `/sit`).
+- remove internal paths.
 
-## Deploy on Vercel
+By doing this, we take as "the same code" different variations of the same URL. For example, the following URLs are "equal":
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [https://cdn.example.com/folder/container/the-library.0.1.1.min.js](#)
+- [https://cdn.example.com/the-library.x.x.x.js](#)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Better improvements can be done into these heuristics, to understand even better if two libraries are "the same".
+
+## Configuration 
+
+In the file [`/config/default.tsx`](config/default.tsx) you can find attributes for the configuration of the project.
+
+### Parameters
+
+- **MAX_CRAWLED_URLS_FROM_GOOGLE**. The max quantity of urls that we are going to take as relevant.
+- **MAX_LENGTH_OF_SCRIPT_SOURCE**. Formats the max-len of scripts that are visualized in the results page.
+- **MAX_QUANTITY_OF_LIBRARIES_SHOWN**. The number of libraries we are selecting to show on the top scripts list.
+
+### Routes
+
+Internal configuration of routes.
+
+### Crawler
+
+The crawler configuration, divided in the Google configuration, and the sites configuration.
+
+- **google.url**. The url for google to start to look for results.
+- **google.querySelectorAll**. The `querySelectorAll` value we use to crawl for links (Google returns lots of links, so we need to be specific about or search).
+- **sites.querySelectorAll**. The `querySelectorAll` value we use to grab the script sources from the crawled sites.

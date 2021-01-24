@@ -2,6 +2,7 @@ export default {
   parameters: {
     MAX_CRAWLED_URLS_FROM_GOOGLE: 3,
     MAX_LENGTH_OF_SCRIPT_SOURCE: 80,
+    MAX_QUANTITY_OF_LIBRARIES_SHOWN: 5,
   },
   routes: {
     home: (): string => '/',
