@@ -18,7 +18,7 @@ type ResultsContainerProps = {
 export default function ResultsContainer({ searchFor }: ResultsContainerProps): ReactElement {
   const { data, error } = useSWR(`/api/crawlGoogle?q=${searchFor}`, axios)
 
-  if (error || (data && !data.data)) {
+  if (error) {
     return <ServerError />
   }
 

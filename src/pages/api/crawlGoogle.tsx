@@ -14,7 +14,7 @@ export default async function crawlGoogle(req: NextApiRequest, res:NextApiRespon
 
   const crawler = new CrawlerService()
   const results = await crawler
-    .setUrl(config.crawler.google.url(req.query.q))
+    .setUrl(config.crawler.google.url(decodeURIComponent(req.query.q)))
     .setStrategy(GoogleStrategy)
     .crawl()
 
