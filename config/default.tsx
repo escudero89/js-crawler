@@ -9,7 +9,10 @@ export default {
   crawler: {
     google: {
       url: (query:string): string => `https://www.google.com/search?q=${query}`,
-      querySelectorAll: '#search a[data-ved][href^="https://"]',
+      querySelectorAll: '#search a[data-ved][href^="https://"]', // @hack this could be improved upon
+    },
+    sites: {
+      querySelectorAll: 'script[src]',
     },
   },
 }
