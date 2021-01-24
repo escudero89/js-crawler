@@ -9,12 +9,14 @@ export default class CrawlerService {
 
   strategy: CrawlerStrategy
 
-  setUrl(url: string): void {
+  setUrl(url: string): CrawlerService {
     this.url = url
+    return this
   }
 
-  setStrategy(strategy: CrawlerStrategy): void {
+  setStrategy(strategy: CrawlerStrategy): CrawlerService {
     this.strategy = strategy
+    return this
   }
 
   async crawl(): Promise<string[]> {
