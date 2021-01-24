@@ -1,6 +1,7 @@
 export default {
   parameters: {
     MAX_CRAWLED_URLS_FROM_GOOGLE: 3,
+    MAX_LENGTH_OF_SCRIPT_SOURCE: 80,
   },
   routes: {
     home: (): string => '/',

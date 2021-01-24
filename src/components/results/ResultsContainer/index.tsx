@@ -3,7 +3,9 @@ import axios from 'axios'
 import useSWR from 'swr'
 
 import ServerError from '../../shared/ServerError/index'
-import NotFound from '../../shared/NotFound/index'
+import Loading from '../../shared/Loading/index'
+import TopScripts from '../TopScripts/index'
+import SitesContainer from '../SitesContainer/index'
 
 type ResultsContainerProps = {
   searchFor: string;
@@ -17,16 +19,15 @@ export default function ResultsContainer({ searchFor }: ResultsContainerProps): 
   }
 
   if (!data || !data.data) {
-    return <NotFound />
+    return <Loading />
   }
 
   const { data: googleResults } = data
 
   return (
     <div>
-      Results!
-      {' '}
-      {googleResults}
+      <TopScripts />
+      <SitesContainer sites={googleResults} />
     </div>
   )
 }
