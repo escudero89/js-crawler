@@ -16,7 +16,7 @@ type ScriptResolverProps = {
 }
 
 export default function ScriptResolver({ site }: ScriptResolverProps): ReactElement {
-  const { data, error } = useSWR(`/api/crawlSite?q=${site}`, axios)
+  const { data, error } = useSWR(`/api/crawlSite?url=${site}`, axios)
 
   if (error) {
     return <Text type="danger">Oops, something went wrong.</Text>
@@ -30,7 +30,7 @@ export default function ScriptResolver({ site }: ScriptResolverProps): ReactElem
 
   return (
     scripts.map((script: string): ReactNode => (
-      <Tag color="magenta" key={script}>
+      <Tag color="magenta" key={`${site}-${script}`}>
         {getFormattedScript(script)}
       </Tag>
     ))

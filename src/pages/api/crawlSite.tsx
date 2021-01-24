@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import CrawlerService from '../../services/CrawlerService'
-import config from '../../../config/default'
 import SiteStrategy from '../../services/CrawlerStrategies/SiteStrategy'
 
 export default async function crawlGoogle(req: NextApiRequest, res:NextApiResponse): Promise<any> {
@@ -16,7 +15,7 @@ export default async function crawlGoogle(req: NextApiRequest, res:NextApiRespon
 
   const crawler = new CrawlerService()
   const results = await crawler
-    .setUrl(config.crawler.google.url(url))
+    .setUrl(url)
     .setStrategy(SiteStrategy)
     .crawl()
 

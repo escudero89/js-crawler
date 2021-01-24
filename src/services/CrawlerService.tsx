@@ -5,9 +5,9 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 type CrawlerStrategy = (page: Page) => Promise<string[]>
 
 export default class CrawlerService {
-  url: string
+  url: string | null = null
 
-  strategy: CrawlerStrategy
+  strategy: CrawlerStrategy | null = null
 
   setUrl(url: string): CrawlerService {
     this.url = url
