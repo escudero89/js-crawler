@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "antd": "^4.11.1",
+    "axios": "^0.21.1",
     "next": "10.0.5",
     "puppeteer": "^5.5.0",
     "puppeteer-extra": "^3.1.16",
     "puppeteer-extra-plugin-stealth": "^2.6.6",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "swr": "^0.4.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 import Base from '../templates/base'
 import ResultsContainer from '../components/results/ResultsContainer/index'
-import Oops from '../components/results/shared/Oops/index'
+import Oops from '../components/shared/Oops/index'
 
 export default function Results(): ReactElement {
   const router = useRouter()

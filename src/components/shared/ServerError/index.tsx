@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 import { Button, Result } from 'antd'
 import { useRouter } from 'next/router'
-import config from '../../../../../config/default'
+import config from '../../../../config/default'
 
-export default function Oops(): ReactElement {
+export default function ServerError(): ReactElement {
   const router = useRouter()
 
   const backHome = () => {
@@ -12,9 +12,9 @@ export default function Oops(): ReactElement {
 
   return (
     <Result
-      status="error"
-      title="Get me out of here"
-      subTitle="Sorry, something went wrong with your request. "
+      status="500"
+      title="500"
+      subTitle="Sorry, something went wrong."
       extra={<Button type="primary" onClick={backHome}>Back Home</Button>}
     />
   )
