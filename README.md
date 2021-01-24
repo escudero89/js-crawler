@@ -63,3 +63,12 @@ The crawler configuration, divided in the Google configuration, and the sites co
 - **google.url**. The url for google to start to look for results.
 - **google.querySelectorAll**. The `querySelectorAll` value we use to crawl for links (Google returns lots of links, so we need to be specific about or search).
 - **sites.querySelectorAll**. The `querySelectorAll` value we use to grab the script sources from the crawled sites.
+
+## What could be improved upon
+
+There are several things that we could add to this project to make it better. Just to name a few that were not mentioned above:
+
+- A better error handling. Especially on the crawler (we assume that everything is going to be okay).
+- Tests. We added just a few as a proof of concept and to setup the environement for more tests. Plus, the added tests are only unit test, we could add e2e test (via wdio for example), and snapshots/storybooks for the components.
+- UI improvements (the bare minimum was done, but it looks nice thanks to Ant Design).
+- Metrics, such as NewRelic and Datadog (for app measurements), and Google Analytics (for product measurements), if we decide to host the app.
